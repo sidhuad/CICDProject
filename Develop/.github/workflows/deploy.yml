@@ -22,7 +22,8 @@ jobs:
         # Run install and test scripts
         run: |
             npm install
-            npm run test-gui
+            npm run build
+            npm run test-component
 
       # Define a step named "Deploy"
       - name: Deploy
@@ -30,7 +31,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         # Set an environment variable with the deployment URL from secrets
         env:
-          DEPLOY_URL: ${https://api.render.com/deploy/srv-cv8e07rqf0us73b764og?key=hIu5XS2xVFo}
+          DEPLOY_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         # Run the deployment command
         run: |
           curl "$DEPLOY_URL"
